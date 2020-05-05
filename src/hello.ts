@@ -1,33 +1,44 @@
-import {graphql} from 'graphql';
+import {graphql, GraphQLObjectType, GraphQLSchema} from 'graphql';
 import 'reflect-metadata';
 import {buildSchema} from 'type-graphql';
-import DummyResolver from './DummyResolver';
-import MyOrphanedType from './MyOrphanedType';
-import Recipe from './Recipe';
-import path from 'path';
-
-// import RecipeResolver from './RecipeResolver';
+import Book from './Book';
+import DummyResolver from './dummy/DummyResolver';
 
 async function main() {
-  const schema = await buildSchema({
+  const schemaFromTypeGraphql = await buildSchema({
     resolvers: [DummyResolver],
-    // container: ResolveContainer,
     validate: false, // https://github.com/MichalLytek/type-graphql/issues/150
-    orphanedTypes: [MyOrphanedType],
-    emitSchemaFile: path.resolve(__dirname, '../dist/schema.graphql')
+    orphanedTypes: [Book],
   });
 
-  // graphql(schema, '{ recipes { title }}').then(result => {
-  //   console.log(JSON.stringify(result));
-  // });
-  //
-  // graphql(schema, '{ recipe(id:"111") { title }}').then(result => {
-  //   console.log(JSON.stringify(result));
-  // });
-  //
-  // graphql(schema, '{ searchRecipes(keyword:"00") { title }}').then(result => {
-  //   console.log(JSON.stringify(result));
-  // });
+  console.log(schemaFromTypeGraphql.getTypeMap())
+
+  const bookType = schemaFromTypeGraphql.getType('Book') as GraphQLObjectType;
+
+  const schema = new GraphQLSchema({
+    query: new GraphQLObjectType({
+      name: 'RootQueryType',
+      fields: {
+        book: {
+          type: bookType,
+          resolve() {
+            const book = new Book();
+            book.id = '111';
+            book.title = 'title111';
+            return book;
+          },
+        },
+      },
+    }),
+  });
+
+  const query = '{ book {id, title} }';
+
+  graphql(schema, query).then(result => {
+    console.log(JSON.stringify(result));
+  });
+
 }
 
 main();
+

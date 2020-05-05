@@ -1,9 +1,9 @@
-TypeScript "type-graphql" Orphaned Types Demo
+TypeScript "type-graphql" Working with GraphqlJS Demo
 ===========================
 
-在type-graphql v1.x中提供了可以定义不被任何Resolver使用的Orphaned Types
+利用type-graphql定义type，然后在普通的graphjs中使用。
 
-它有一个重要的作用，可以让我们使用type-graphql来定义一些graphql类型，然后与别的框架或者方法，配合使用。
+注意：由于type-graphql的要求，必须提供一个由它定义的Resolver，所以自定义了一个DummyResolver
 
 ```
 npm install
