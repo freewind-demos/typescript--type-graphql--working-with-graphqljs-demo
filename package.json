@@ -1,17 +1,17 @@
 {
-    "scripts": {
-        "start": "ts-node src/hello.ts"
-    },
-    "devDependencies": {
-        "@types/graphql": "14.5.0",
-        "@types/node": "13.13.4",
-        "ts-node": "8.10.1",
-        "typescript": "3.8.3"
-    },
-    "dependencies": {
-        "graphql": "15.0.0",
-        "reflect-metadata": "0.1.13",
-        "type-graphql": "1.0.0-rc.1",
-        "typedi": "0.8.0"
-    }
+  "scripts": {
+    "start": "ts-node src/hello.ts"
+  },
+  "devDependencies": {
+    "@types/graphql": "14.5.0",
+    "@types/node": "13.13.4",
+    "ts-node": "8.10.1",
+    "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "graphql": "15.0.0",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "1.0.0-rc.1",
+    "typedi": "0.8.0"
+  }
 }
